@@ -20,6 +20,9 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('admin.index');
 });
+Route::get('/tentang', function () {
+    return view('user.tentang');
+});
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login/proses', [LoginController::class, 'login'])->name('proses.login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
