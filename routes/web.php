@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\VisimisiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,10 +21,16 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('admin.index');
 });
+Route::get('/admin/visimisi', function () {
+    return view('admin.crud_Visimisi');
+});
+Route::get('/admin/visimisi', [VisimisiController::class, 'index'])->name('visimisi');
+Route::post('/visimisi/create', [VisimisiController::class, 'create'])->name('visimisi.create');
+
 Route::get('/tentang', function () {
     return view('user.tentang');
 });
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login/proses', [LoginController::class, 'login'])->name('proses.login');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login/proses', [LoginController::class, 'login'])->name('proses.login');
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
