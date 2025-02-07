@@ -119,7 +119,7 @@
                               <div class="card-body">
                                   <h5 class="card-title">{{ $item->nama }}</h5>
                                   <p class="card-text">{{ $item->jabatan }}</p>
-                                  <a href="{{ route('edit.pengurus') }}" class="btn btn-primary">Edit Data</a>
+                                  <a href="{{ route('edit.pengurus', $item->id) }}" class="btn btn-primary">Edit Data</a>
                               </div>
                           </div>
                       </div>
@@ -184,6 +184,7 @@
                               <option value="Sekretaris 2">Sekretaris 2</option>
                               <option value="Bendahara 1">Bendahara 1</option>
                               <option value="Bendahara 2">Bendahara 2</option>
+                              <option value="Marbot">Marbot</option>
                             </select>
                         </div>
                         <div class="mb-3">

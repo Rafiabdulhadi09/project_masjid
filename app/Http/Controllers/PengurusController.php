@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengurus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PengurusController extends Controller
 {
@@ -12,9 +13,9 @@ class PengurusController extends Controller
         $pengurus = Pengurus::all();
         return view('admin.crud_pengurus', compact('pengurus'));
     }
-    public function edit()
+    public function edit($id)
     {
-        $pengurus = Pengurus::all();
+        $pengurus = Pengurus::findOrFail($id);
         return view('admin.edit_pengurus', compact('pengurus'));
     }
         public function create(Request $request)
@@ -47,5 +48,33 @@ class PengurusController extends Controller
         } else {
             return redirect()->back();
         }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'nama' => 'required|string|max:255',
+            'jabatan' => 'required|string|max:255',
+            'poto' => 'nullable|image|mimes:jpeg,png,jpg',
+        ]);
+
+        $data = Pengurus::findOrFail($id);
+        $data->jabatan = $request->jabatan;
+        $data->nama = $request->nama;
+
+        if ($request->hasFile('poto')) {
+            if ($data->poto) {
+                Storage::delete('public/profile/' . $data->poto);
+            }
+
+            $image = $request->file('poto');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/profile', $imageName);
+            $data->poto = $imageName;
+        }
+
+        $data->save();
+
+        return redirect()->route('crud.pengurus')->with('success', 'Data berhasil diperbarui!');
     }
 }

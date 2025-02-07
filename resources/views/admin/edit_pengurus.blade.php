@@ -105,28 +105,35 @@
                   <div class="m-5">
                     <h2 class="mb-4">Edit Data Pengurus</h2>
 
-                    <form action="#" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route ('update.pengurus',$pengurus->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
-
+                        @method('PUT')
                         <!-- Input Nama -->
                         <div class="form-group">
                             <label for="nama">Nama</label>
-                            <input type="text" class="form-control" id="nama" name="nama" value="">
+                            <input type="text" value="{{ $pengurus->nama }}" class="form-control" id="nama" name="nama" >
                         </div>
 
                         <!-- Input Jabatan -->
                         <div class="form-group">
-                            <label for="jabatan">Jabatan</label>
-                            <input type="text" class="form-control" id="jabatan" name="jabatan" value="">
+                            <label for="jabatan" class="form-label">Jabatan Sebelumnya <b>{{ $pengurus->jabatan }}</b></label>
+                            <select class="form-select" name="jabatan" aria-label="Default select example">
+                              <option value="Ketua">Ketua</option>
+                              <option value="Sekretaris 1">Sekretaris 1</option>
+                              <option value="Sekretaris 2">Sekretaris 2</option>
+                              <option value="Bendahara 1">Bendahara 1</option>
+                              <option value="Bendahara 2">Bendahara 2</option>
+                              <option value="Marbot">Marbot</option>
+                            </select>
                         </div>
 
                         <!-- Foto Profil -->
                         <div class="form-group">
                             <label for="formFile" class="form-label">Default file input example</label>
-                            <input class="form-control" type="file" id="formFile">
+                            <input class="form-control" name="poto" type="file" id="formFile">
                             <!-- Menampilkan Foto Lama (Dummy) -->
                             <div class="mt-2">
-                                <img src="{{ asset('storage/profile/default.jpg') }}" width="150" alt="Foto Profil Default">
+                                  <img src="{{ asset('storage/profile/' . $pengurus->poto) }}" class="img-fluid" width="300px" alt="Foto">
                             </div>
                         </div>
 

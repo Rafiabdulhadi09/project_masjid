@@ -27,8 +27,9 @@ Route::get('/admin/visimisi', function () {
     return view('admin.crud_Visimisi');
 });
 Route::get('/admin/pengurus', [PengurusController::class, 'index'])->name('crud.pengurus');
-Route::get('/edit/pengurus', [PengurusController::class, 'edit'])->name('edit.pengurus');
+Route::get('/edit/{id}/pengurus', [PengurusController::class, 'edit'])->name('edit.pengurus');
 Route::post('/admin/pengurus/create', [PengurusController::class, 'create'])->name('create.pengurus');
+Route::put('/admin/pengurus/{id}/update', [PengurusController::class, 'update'])->name('update.pengurus');
 
 Route::get('/admin/visimisi', [VisimisiController::class, 'index'])->name('visimisi');
 Route::post('/visimisi/create', [VisimisiController::class, 'create'])->name('visimisi.create');
