@@ -29,4 +29,20 @@ class VisimisiController extends Controller
             return redirect()->back();
         }
     }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'visi' => 'required',
+            'misi' => 'required',
+        ]);
+
+        $visimisi = VisiMisi::findOrFail($id);
+
+        $visimisi->update([
+            'visi' => $request->visi,
+            'misi' => $request->misi,
+        ]);
+
+        return redirect()->back()->with('success', 'Data Visi & Misi Berhasil Diperbarui!');
+    }
 }

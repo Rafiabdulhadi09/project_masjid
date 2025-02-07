@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ url('css/sb-admin-2.min.css') }}" rel="stylesheet">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 </head>
 
@@ -100,61 +101,32 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <div class="d-grid gap-2 mb-3">
-                        @if ($visimisi)
-                       
-                        @else
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
-                                Tambah Visi Misi
-                            </button>
-                        @endif
-                    </div>
-                    <div class="row">
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-                            <!-- Project Card Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Visi</h6>
-                                </div>
-                                <div class="card-body">
-                                    @if ($visimisi)
-                                    <p>{{ $visimisi->visi }}</p> 
-                                    @else
-                                    <p>Visi Belum Di Tambahkan</p>
-                                    @endif
-                                    
-                                </div>
-                            </div>
-                             @if ($visimisi)
-                            <div class="d-grid gap-2">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
-                                    Edit Data
-                                </button>
-                            </div>
-                        @else
-                            
-                        @endif
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-                            <!-- Illustrations -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Misi</h6>
-                                </div>
-                                <div class="card-body">
-                                    @if ($visimisi)
-                                        <p>{{ $visimisi->misi }}</p> 
-                                    @else
-                                        <p>Misi Belum Di Tambahkan</p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="d-grid gap-2 m-3">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
+                      Tambah Pengurus
+                    </button>
                 </div>
+                 <div class="container">
+                  <div class="row justify-content-center"> 
+                      @foreach ($pengurus as $item)
+                      <div class="col-md-4 d-flex justify-content-center">
+                          <div class="card shadow mb-4 text-center" style="width: 18rem;">
+                              @if($item->poto)
+                                  <img src="{{ asset('storage/profile/' . $item->poto) }}" class="img-fluid" alt="Foto">
+                              @else
+                                  <span class="text-muted">Tidak Ada Foto</span>
+                              @endif
+                              <div class="card-body">
+                                  <h5 class="card-title">{{ $item->nama }}</h5>
+                                  <p class="card-text">{{ $item->jabatan }}</p>
+                                  <a href="{{ route('edit.pengurus') }}" class="btn btn-primary">Edit Data</a>
+                              </div>
+                          </div>
+                      </div>
+                      @endforeach
+                  </div>
+              </div>
+
                 <!-- /.container-fluid -->
 
             </div>
@@ -195,18 +167,28 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createModalLabel">Tambah Data Visi & Misi</h5>
+                    <h5 class="modal-title" id="createModalLabel">Tambah Pengurus</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('visimisi.create') }}" method="POST">
+                    <form action="{{ route('create.pengurus') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="visi" class="form-label">Visi</label>
-                            <textarea class="form-control" name="visi" id="visi" rows="3" required></textarea>
+                            <label for="nama" class="form-label">Masukan Nama</label>
+                            <input class="form-control" name="nama" id="nama" required></input>
                         </div>
                         <div class="mb-3">
-                            <label for="misi" class="form-label">Misi</label>
-                            <textarea class="form-control" name="misi" id="misi" rows="3" required></textarea>
+                            <label for="jabatan" class="form-label">Pilih Jabatan</label>
+                            <select class="form-select" name="jabatan" aria-label="Default select example">
+                              <option value="Ketua">Ketua</option>
+                              <option value="Sekretaris 1">Sekretaris 1</option>
+                              <option value="Sekretaris 2">Sekretaris 2</option>
+                              <option value="Bendahara 1">Bendahara 1</option>
+                              <option value="Bendahara 2">Bendahara 2</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="formFile" class="form-label">Masukan poto profile</label>
+                          <input class="form-control" name="poto" type="file" id="formFile">
                         </div>
                         <button type="submit" class="btn btn-success">Simpan</button>
                     </form>
@@ -223,25 +205,6 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Form Edit -->
-                    <form action="{{ route('update.data',$visimisi->id ) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        
-                        <div class="form-group">
-                            <label for="visi">Visi</label>
-                            <input type="text" class="form-control" id="visi" name="visi" value="{{ $visimisi->visi ?? '' }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="misi">Misi</label>
-                            <textarea class="form-control" id="misi" name="misi">{{ $visimisi->misi ?? '' }}</textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-                    </form>
                 </div>
             </div>
         </div>

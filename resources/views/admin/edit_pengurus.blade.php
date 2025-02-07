@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ url('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 </head>
 
@@ -100,61 +101,44 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <div class="d-grid gap-2 mb-3">
-                        @if ($visimisi)
-                       
-                        @else
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
-                                Tambah Visi Misi
-                            </button>
-                        @endif
-                    </div>
-                    <div class="row">
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-                            <!-- Project Card Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Visi</h6>
-                                </div>
-                                <div class="card-body">
-                                    @if ($visimisi)
-                                    <p>{{ $visimisi->visi }}</p> 
-                                    @else
-                                    <p>Visi Belum Di Tambahkan</p>
-                                    @endif
-                                    
-                                </div>
-                            </div>
-                             @if ($visimisi)
-                            <div class="d-grid gap-2">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
-                                    Edit Data
-                                </button>
-                            </div>
-                        @else
-                            
-                        @endif
+                <div class="container">
+                  <div class="m-5">
+                    <h2 class="mb-4">Edit Data Pengurus</h2>
+
+                    <form action="#" method="POST" enctype="multipart/form-data">
+                        @csrf
+
+                        <!-- Input Nama -->
+                        <div class="form-group">
+                            <label for="nama">Nama</label>
+                            <input type="text" class="form-control" id="nama" name="nama" value="">
                         </div>
 
-                        <div class="col-lg-6 mb-4">
-                            <!-- Illustrations -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Misi</h6>
-                                </div>
-                                <div class="card-body">
-                                    @if ($visimisi)
-                                        <p>{{ $visimisi->misi }}</p> 
-                                    @else
-                                        <p>Misi Belum Di Tambahkan</p>
-                                    @endif
-                                </div>
+                        <!-- Input Jabatan -->
+                        <div class="form-group">
+                            <label for="jabatan">Jabatan</label>
+                            <input type="text" class="form-control" id="jabatan" name="jabatan" value="">
+                        </div>
+
+                        <!-- Foto Profil -->
+                        <div class="form-group">
+                            <label for="formFile" class="form-label">Default file input example</label>
+                            <input class="form-control" type="file" id="formFile">
+                            <!-- Menampilkan Foto Lama (Dummy) -->
+                            <div class="mt-2">
+                                <img src="{{ asset('storage/profile/default.jpg') }}" width="150" alt="Foto Profil Default">
                             </div>
                         </div>
+
+                        <!-- Tombol Simpan -->
+                        <button type="submit" class="btn btn-success">Update Data</button>
+                        <a href="#" class="btn btn-secondary">Batal</a>
+                    </form>
                     </div>
                 </div>
+
+                </div>
+
                 <!-- /.container-fluid -->
 
             </div>
@@ -186,62 +170,6 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal Bootstrap -->
-    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createModalLabel">Tambah Data Visi & Misi</h5>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('visimisi.create') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="visi" class="form-label">Visi</label>
-                            <textarea class="form-control" name="visi" id="visi" rows="3" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="misi" class="form-label">Misi</label>
-                            <textarea class="form-control" name="misi" id="misi" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-success">Simpan</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal Edit Data -->
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit Data</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Form Edit -->
-                    <form action="{{ route('update.data',$visimisi->id ) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        
-                        <div class="form-group">
-                            <label for="visi">Visi</label>
-                            <input type="text" class="form-control" id="visi" name="visi" value="{{ $visimisi->visi ?? '' }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="misi">Misi</label>
-                            <textarea class="form-control" id="misi" name="misi">{{ $visimisi->misi ?? '' }}</textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-                    </form>
                 </div>
             </div>
         </div>
