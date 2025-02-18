@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\PengurusController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VisimisiController;
 
 /*
@@ -41,3 +43,6 @@ Route::get('/tentang', [TentangController::class, 'index'])->name('tentang');
     Route::post('/login/proses', [LoginController::class, 'login'])->name('proses.login');
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+    Route::get('/admin/profile', [ProfileController::class, 'index'])->name('admin.profile');
+    Route::get('/admin/pemasukan', [PemasukanController::class, 'index'])->name('admin.pemasukan');
+    Route::post('/admin/transaksi', [PemasukanController::class, 'create'])->name('admin.transaksi');

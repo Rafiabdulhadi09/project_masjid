@@ -32,6 +32,7 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
+        
             <!-- Main Content -->
             <div id="content">
 
@@ -100,72 +101,35 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
+               
                 <div class="container-fluid">
-                    <div class="d-grid gap-2 mb-3">
-                        @if ($visimisi)
-                       
-                        @else
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
-                                Tambah Visi Misi
-                            </button>
-                        @endif
-                    </div>
-                    @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-
-                    @if (session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ session('error') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endif
-                    <div class="row">
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-                            <!-- Project Card Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Visi</h6>
-                                </div>
-                                <div class="card-body">
-                                    @if ($visimisi)
-                                    <p>{{ $visimisi->visi }}</p> 
-                                    @else
-                                    <p>Visi Belum Di Tambahkan</p>
-                                    @endif
-                                    
-                                </div>
-                            </div>
-                             @if ($visimisi)
-                            <div class="d-grid gap-2">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
-                                    Edit Data
-                                </button>
-                            </div>
-                        @else
-                            
-                        @endif
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-                            <!-- Illustrations -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Misi</h6>
-                                </div>
-                                <div class="card-body">
-                                    @if ($visimisi)
-                                        <p>{{ $visimisi->misi }}</p> 
-                                    @else
-                                        <p>Misi Belum Di Tambahkan</p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                    <div class="container mt-5">
+                        <h2 class="mb-4">Daftar Pengguna</h2>
+                        <button class="mb-3 form-control btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Tambah Pemasukan</button>
+                        <table class="table table-striped table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Deskripsi</th>
+                                    <th>Jumlah</th>
+                                    <th>Donatur</th>
+                                    <th>Jenis Pembayaran</th>
+                                    <th>Bukti Pembayaaran</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pemasukan as $item)
+                                    <tr>
+                                        <td>1</td>
+                                        <td> {{ $item->transaksi }} </td>
+                                        <td> {{ $item->jumlah }} </td>
+                                        <td> {{ $item->donatur }} </td>
+                                        <td> {{ $item->jns_pembayaran }} </td>
+                                        <td> poto </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -211,15 +175,30 @@
                     <h5 class="modal-title" id="createModalLabel">Tambah Data Visi & Misi</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('visimisi.create') }}" method="POST">
+                    <form action="{{ route('admin.transaksi') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="visi" class="form-label">Visi</label>
-                            <textarea class="form-control" name="visi" id="visi" rows="3" required></textarea>
+                            <label for="pemasukan" class="form-label">Nama Pemasukan</label>
+                            <input class="form-control" name="pemasukan" id="pemasukan" rows="3" required>
                         </div>
                         <div class="mb-3">
-                            <label for="misi" class="form-label">Misi</label>
-                            <textarea class="form-control" name="misi" id="misi" rows="3" required></textarea>
+                            <label for="jumlah" class="form-label">jumlah</label>
+                            <input class="form-control" name="jumlah" id="jumlah" rows="3" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nama_donatur" class="form-label">Nama Donatur</label>
+                            <input class="form-control" name="nama_donatur" id="nama_donatur" rows="3" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jenis_pembayaran" class="form-label">Jenis Pembayaran</label>
+                            <select class="form-control" name="jenis_pembayaran" id="">
+                                <option value="tunai">Tunai</option>
+                                <option value="non tunai">Non Tunai</option>
+                            </select>
+                            <div class="mb-3">
+                                <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran</label>
+                                <input type="file" class="form-control" name="bukti_pembayaran" id="bukti_pembayaran" rows="3" required>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-success">Simpan</button>
                     </form>
@@ -236,25 +215,6 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Form Edit -->
-                    <form action="{{ route('update.data',$visimisi->id ) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        
-                        <div class="form-group">
-                            <label for="visi">Visi</label>
-                            <input type="text" class="form-control" id="visi" name="visi" value="{{ $visimisi->visi ?? '' }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="misi">Misi</label>
-                            <textarea class="form-control" id="misi" name="misi">{{ $visimisi->misi ?? '' }}</textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-success">Simpan Perubahan</button>
-                    </form>
                 </div>
             </div>
         </div>
