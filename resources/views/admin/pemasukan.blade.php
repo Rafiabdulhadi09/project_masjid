@@ -104,9 +104,9 @@
                
                 <div class="container-fluid">
                     <div class="container mt-5">
-                        <h2 class="mb-4">Daftar Pengguna</h2>
+                        <h2 class="mb-4">Daftar Pemasukan DKM</h2>
                         <button class="mb-3 form-control btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Tambah Pemasukan</button>
-                        <table class="table table-striped table-bordered">
+                        <table class="table table-striped table-bordered table text-center">
                             <thead class="table-dark">
                                 <tr>
                                     <th>No</th>
@@ -115,19 +115,32 @@
                                     <th>Donatur</th>
                                     <th>Jenis Pembayaran</th>
                                     <th>Bukti Pembayaaran</th>
+                                    <th>Tanggal</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @if ($pemasukan->count())
                                 @foreach ($pemasukan as $item)
                                     <tr>
-                                        <td>1</td>
-                                        <td> {{ $item->transaksi }} </td>
-                                        <td> {{ $item->jumlah }} </td>
-                                        <td> {{ $item->donatur }} </td>
-                                        <td> {{ $item->jns_pembayaran }} </td>
-                                        <td> poto </td>
+                                        <td class="align-middle">{{ $loop->iteration }}</td>
+                                        <td class="align-middle"> {{ $item->transaksi }} </td>
+                                        <td class="align-middle"> {{ formatRupiah($item->jumlah) }} </td>
+                                        <td class="align-middle"> {{ $item->donatur }} </td>
+                                        <td class="align-middle"> {{ $item->jns_pembayaran }} </td>
+                                        <td class="align-middle">@if($item->poto)
+                                                <img src="{{ asset('storage/pemasukan/' . $item->poto) }}" class="img-fluid" alt="Foto">
+                                            @else
+                                                <span class="text-muted">Tidak Ada Foto</span>
+                                            @endif </td>
+                                            <td class="align-middle">{{ date('d F Y', ($item->tanggal)) }}</td>
                                     </tr>
                                 @endforeach
+                                @else
+                                <tr>
+                                    <td colspan="7" class="text-center">Tidak ada data pemasukan</td>
+                                </tr>
+                                    
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -172,7 +185,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createModalLabel">Tambah Data Visi & Misi</h5>
+                    <h5 class="modal-title" id="createModalLabel">Tambah Pemasukan</h5>
                 </div>
                 <div class="modal-body">
                     <form action="{{ route('admin.transaksi') }}" method="POST" enctype="multipart/form-data">

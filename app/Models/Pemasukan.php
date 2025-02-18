@@ -10,7 +10,7 @@ class Pemasukan extends Model
     use HasFactory;
     protected $table = 'pemasukan';
     protected $fillable = [
-        'transaksi',
+        'keterangan',
         'jumlah',
         'donatur',
         'jns_pembayaran',

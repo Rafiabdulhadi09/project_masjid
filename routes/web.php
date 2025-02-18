@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PemasukanController;
+use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\ProfileController;
@@ -46,3 +47,6 @@ Route::get('/tentang', [TentangController::class, 'index'])->name('tentang');
     Route::get('/admin/profile', [ProfileController::class, 'index'])->name('admin.profile');
     Route::get('/admin/pemasukan', [PemasukanController::class, 'index'])->name('admin.pemasukan');
     Route::post('/admin/transaksi', [PemasukanController::class, 'create'])->name('admin.transaksi');
+
+    Route::get('pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran');
+    Route::post('pengeluaran', [PengeluaranController::class, 'create'])->name('create.pengeluaran');

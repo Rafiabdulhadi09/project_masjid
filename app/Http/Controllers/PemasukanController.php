@@ -31,20 +31,20 @@ class PemasukanController extends Controller
             'bukti_pembayaran.mimes' => 'Format gambar harus JPG, PNG, atau JPEG.',
         ]
     );
-        $transaksi = new Pemasukan();
-        $transaksi->transaksi = $request->pemasukan;
-        $transaksi->jumlah = $request->jumlah;
-        $transaksi->donatur  = $request->nama_donatur;
-        $transaksi->jns_pembayaran = $request->jenis_pembayaran;
+        $pemasukan = new Pemasukan();
+        $pemasukan->keterangan = $request->pemasukan;
+        $pemasukan->jumlah = $request->jumlah;
+        $pemasukan->donatur  = $request->nama_donatur;
+        $pemasukan->jns_pembayaran = $request->jenis_pembayaran;
 
          if ($request->hasFile('bukti_pembayaran')) {
             $file = $request->file('bukti_pembayaran');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('public/pemasukan', $filename); 
-            $transaksi->bukti_pembayaran = $filename;
+            $pemasukan->bukti_pembayaran = $filename;
         }
-        $transaksi->save();
-        if ($transaksi) {
+        $pemasukan->save();
+        if ($pemasukan) {
             return redirect()->back()->with('success', 'Berita berhasil ditambahkan!');
         } else {
             return redirect()->back()->with('error', 'Terjadi kesalahan, berita gagal disimpan.');

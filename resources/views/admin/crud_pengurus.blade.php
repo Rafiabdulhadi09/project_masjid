@@ -108,7 +108,8 @@
                 </div>
                  <div class="container">
                   <div class="row justify-content-center"> 
-                      @foreach ($pengurus as $item)
+                    @if ($pengurus->count())
+                    @foreach ($pengurus as $item)
                       <div class="col-md-4 d-flex justify-content-center">
                           <div class="card shadow mb-4 text-center" style="width: 18rem;">
                               @if($item->poto)
@@ -124,6 +125,10 @@
                           </div>
                       </div>
                       @endforeach
+                    @else
+                        <p class="text-center fw-bolder">Pengurus dkm belum di tambahkan</p>
+                    @endif
+
                   </div>
               </div>
 
