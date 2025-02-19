@@ -10,7 +10,8 @@ class PemasukanController extends Controller
     public function index ()
     {
         $pemasukan = Pemasukan::all();
-        return view('admin.pemasukan', compact('pemasukan'));
+        $totalPemasukan = Pemasukan::sum('jumlah');
+        return view('admin.pemasukan', compact('pemasukan','totalPemasukan'));
     }
 
     public function create(Request $request)

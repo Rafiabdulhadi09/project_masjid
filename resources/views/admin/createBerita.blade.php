@@ -103,46 +103,6 @@
                 <!-- Begin Page Content -->
                
                 <div class="container-fluid">
-                    <div class="container mt-5">
-                        <h2 class="mb-2">Daftar Pengeluaran DKM</h2>
-                        <p class="mb-4 fw-bolder">Semua pemasukan Dewan Kesejahteraan Masjid Yaitu: <br><b>{{ formatRupiah($totalPengeluaran) }}</b>
-                        </p>
-                        <button class="mb-3 form-control btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Tambah Pengeluaran</button>
-                        <table class="table table-striped table-bordered table text-center">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th>No</th>
-                                    <th>Keterangan</th>
-                                    <th>Jumlah</th>
-                                    <th>Jenis Pembayaran</th>
-                                    <th>Bukti Pembayaaran</th>
-                                    <th>Tanggal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if ($pengeluaran->count())
-                                @foreach ($pengeluaran as $item)
-                                    <tr>
-                                        <td class="align-middle">{{ $loop->iteration }}</td>
-                                        <td class="align-middle">{{ $item->keterangan }}</td>
-                                        <td class="align-middle">{{ formatRupiah($item->jumlah) }}</td>
-                                        <td class="align-middle">{{ $item->jns_pembayaran }}</td>
-                                        <td class="align-middle">@if($item->bukti_pembayaran)
-                                                <img src="{{ asset('storage/pengeluaran/' . $item->bukti_pembayaran) }}" class="img-fluid center" width="100px" alt="Foto">
-                                            @else
-                                                <span class="text-muted">Tidak Ada Foto</span>
-                                            @endif </td>
-                                            <td class="align-middle">{{ date('d F Y', ($item->tanggal)) }}</td>
-                                                  </tr>
-                                            @endforeach
-                                            @else
-                                            <tr>
-                                                <td colspan="6" class="text-center">Tidak ada data pengeluaran</td>
-                                            </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -175,54 +135,6 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal Bootstrap -->
-    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createModalLabel">Tambah Pengeluaran</h5>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('create.pengeluaran') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="keterangan" class="form-label">Keterangan</label>
-                            <input class="form-control" name="keterangan" id="keterangan" rows="3" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="jumlah" class="form-label">jumlah</label>
-                            <input class="form-control" type="number" name="jumlah" id="jumlah" rows="3" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="jenis_pembayaran" class="form-label">Jenis Pembayaran</label>
-                            <select class="form-control" name="jenis_pembayaran" id="">
-                                <option value="tunai">Tunai</option>
-                                <option value="non tunai">Non Tunai</option>
-                            </select>
-                            <div class="mb-3">
-                                <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran</label>
-                                <input type="file" class="form-control" name="bukti_pembayaran" id="bukti_pembayaran" rows="3" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-success">Simpan</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal Edit Data -->
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit Data</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
             </div>
         </div>

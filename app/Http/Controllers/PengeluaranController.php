@@ -10,7 +10,8 @@ class PengeluaranController extends Controller
     public function index()
     {
         $pengeluaran = Pengeluaran::all();
-        return view('admin.pengeluaran', compact('pengeluaran'));
+        $totalPengeluaran = Pengeluaran::sum('jumlah');
+        return view('admin.pengeluaran', compact('pengeluaran','totalPengeluaran'));
     }
 
     public function create(Request $request)

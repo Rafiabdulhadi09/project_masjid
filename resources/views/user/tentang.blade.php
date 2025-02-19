@@ -61,33 +61,37 @@
             </div>
         </div>
         <!-- About End -->
-      <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
-            <div class="container">
-                <div class="bg-light rounded p-3">
-                    <div class="bg-white rounded p-4" style="border: 1px dashed rgba(0, 185, 142, .3)">
-                        <div class="row g-5 align-items-center">
-                            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                                <h1 class="mb-3">Visi Dkm</h1>
+        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card shadow">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Visi</h6>
+                        </div>
+                            <div class="card-body">
                                 @if ($visi)
-                                    <p>{{ $visi->visi }}</p>
+                                    {{ $visi->visi }}  
                                 @else
-                                    <p>Visi Belum tersedia</p>
-                                @endif
-                            </div>
-                            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                                <div class="mb-4">
-                                    <h1 class="mb-3">Misi Dkm</h1>
-                                    @if ($visi)
-                                        <p>{{ $visi->misi }}</p>
-                                    @else
-                                        <p>Misi Belum tersedia</p>
-                                    @endif
-                                </div>
+                                    <p>Tidak Ada Visi</p>
+                                @endif  
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                        <div class="col-lg-6 mb-2">
+                                <div class="card shadow">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Misi</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        @if ($visi)
+                                            {{ $visi->misi }}  
+                                        @else
+                                            <p>Tidak Ada Visi</p>
+                                        @endif    
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
       </div>
 
         <!-- Team Start -->

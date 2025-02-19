@@ -104,7 +104,9 @@
                
                 <div class="container-fluid">
                     <div class="container mt-5">
-                        <h2 class="mb-4">Daftar Pemasukan DKM</h2>
+                        <h2 class="mb-2">Daftar Pemasukan DKM</h2>
+                        <p class="mb-4 fw-bolder">Semua pemasukan Dewan Kesejahteraan Masjid Yaitu: <br><b>{{ formatRupiah($totalPemasukan) }}</b>
+                        </p>
                         <button class="mb-3 form-control btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">Tambah Pemasukan</button>
                         <table class="table table-striped table-bordered table text-center">
                             <thead class="table-dark">
@@ -196,7 +198,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="jumlah" class="form-label">jumlah</label>
-                            <input class="form-control" name="jumlah" id="jumlah" rows="3" required>
+                            <input class="form-control" type="number" name="jumlah" id="jumlah" rows="3" required>
                         </div>
                         <div class="mb-3">
                             <label for="nama_donatur" class="form-label">Nama Donatur</label>

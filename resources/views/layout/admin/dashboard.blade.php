@@ -53,6 +53,12 @@
                 <a class="nav-link" href="{{ url('/admin/visimisi') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Visi Misi</span></a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('berita') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Berita</span></a>
             </li>
 
             <!-- Divider -->

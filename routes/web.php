@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BeritaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PemasukanController;
@@ -7,6 +9,7 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisimisiController;
 
 /*
@@ -23,9 +26,10 @@ use App\Http\Controllers\VisimisiController;
 Route::get('/', function () {
     return view('user.index');
 });
-Route::get('/admin', function () {
-    return view('admin.index');
-});
+
+Route::get('/', [UserController::class, 'index'])->name('user');
+Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+
 Route::get('/admin/visimisi', function () {
     return view('admin.crud_Visimisi');
 });
@@ -50,3 +54,5 @@ Route::get('/tentang', [TentangController::class, 'index'])->name('tentang');
 
     Route::get('pengeluaran', [PengeluaranController::class, 'index'])->name('pengeluaran');
     Route::post('pengeluaran', [PengeluaranController::class, 'create'])->name('create.pengeluaran');
+    Route::get('berita', [BeritaController::class, 'index'])->name('admin.berita');
+    Route::get('tambah/berita', [BeritaController::class, 'tambah'])->name('tambah.berita');

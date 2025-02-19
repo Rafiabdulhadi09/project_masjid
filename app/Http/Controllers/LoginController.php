@@ -26,7 +26,7 @@ class LoginController extends Controller
             'password'=>$request->password
         ];
         if (Auth::attempt($infologin)) {
-            return redirect('/admin');
+            return redirect()->route('admin');
         } else{
             return redirect()->back()->withErrors('Username Dan Password yang di masukan salah');
         }

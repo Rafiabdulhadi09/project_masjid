@@ -14,13 +14,7 @@
                     <div class="navbar-nav ms-auto">
                         <a href="{{ url('/') }}" class="nav-item nav-link active">Beranda</a>
                         <a href="{{ url('/tentang') }}" class="nav-item nav-link">Tentang kami</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Keuangan</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="property-list.html" class="dropdown-item">Pemasukan</a>
-                                <a href="property-type.html" class="dropdown-item">Pengeluaran</a>
-                            </div>
-                        </div>
+                        <a href="{{ url('/tentang') }}" class="nav-item nav-link">Keuangan </a>
                         <a href="{{ url('/tentang') }}" class="nav-item nav-link">Kajian</a>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
