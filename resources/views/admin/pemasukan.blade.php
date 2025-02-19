@@ -123,12 +123,12 @@
                                 @foreach ($pemasukan as $item)
                                     <tr>
                                         <td class="align-middle">{{ $loop->iteration }}</td>
-                                        <td class="align-middle"> {{ $item->transaksi }} </td>
+                                        <td class="align-middle"> {{ $item->keterangan }} </td>
                                         <td class="align-middle"> {{ formatRupiah($item->jumlah) }} </td>
                                         <td class="align-middle"> {{ $item->donatur }} </td>
                                         <td class="align-middle"> {{ $item->jns_pembayaran }} </td>
-                                        <td class="align-middle">@if($item->poto)
-                                                <img src="{{ asset('storage/pemasukan/' . $item->poto) }}" class="img-fluid" alt="Foto">
+                                        <td class="align-middle">@if($item->bukti_pembayaran)
+                                                <img src="{{ asset('storage/pemasukan/' . $item->bukti_pembayaran) }}" width="100px" class="img-fluid" alt="Foto">
                                             @else
                                                 <span class="text-muted">Tidak Ada Foto</span>
                                             @endif </td>
